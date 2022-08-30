@@ -1,7 +1,6 @@
-🍽 Boilerplate python package
+🥪 Sandwich
 ========================
 
-This simple project is an example repo for Python projects.
+Tools that might be handy for python projects and data ingestion
 
-Inspired by : [Kenneth Reitz](http://www.kennethreitz.org/essays/repository-structure-and-python).
 
