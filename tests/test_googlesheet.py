@@ -1,8 +1,3 @@
-# -*- coding: utf-8 -*-
-
-from .context import sandwich
-
-import pytest
 from dotenv import load_dotenv
 from sandwich.googlesheet import read_worksheet, create_worksheet, delete_worksheet
 
