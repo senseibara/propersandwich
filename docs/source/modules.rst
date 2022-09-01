@@ -1,7 +1,7 @@
-sandw1ch
+propersandwich
 ========
 
 .. toctree::
    :maxdepth: 4
 
-   sandw1ch
+   propersandwich

@@ -9,14 +9,14 @@ import os
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'sandw1ch'
+project = 'propersandwich'
 copyright = '2022, Senseibara'
 author = 'Senseibara'
 release = '0.1.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
-sys.path.insert(0, os.path.abspath(os.path.join('..', '..', 'sandw1ch')))
+sys.path.insert(0, os.path.abspath(os.path.join('..', '..', 'propersandwich')))
 
 extensions = [
     'sphinx.ext.autodoc',

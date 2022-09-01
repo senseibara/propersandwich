@@ -5,7 +5,7 @@ Modules
 Googlesheets
 ---------------------------
 
-.. automodule:: sandw1ch.googlesheet
+.. automodule:: propersandwich.googlesheet
    :members:
    :undoc-members:
    :show-inheritance:
