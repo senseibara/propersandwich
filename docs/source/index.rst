@@ -1,9 +1,9 @@
-.. Sandwich documentation master file, created by
+.. sandw1ch documentation master file, created by
    sphinx-quickstart on Tue Aug 30 15:16:35 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Sandwich's documentation!
+Welcome to sandw1ch's documentation!
 ====================================
 
 .. toctree::

@@ -1,4 +1,4 @@
-from sandwich.postgres import query
+from sandw1ch.postgres import query
 
 def test_query():
     data = query('test', 'SELECT * from test')

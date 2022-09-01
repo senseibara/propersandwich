@@ -1,5 +1,5 @@
 from dotenv import load_dotenv
-from sandwich.googlesheet import read_worksheet, create_worksheet, delete_worksheet
+from sandw1ch.googlesheet import read_worksheet, create_worksheet, delete_worksheet
 
 load_dotenv()
 
