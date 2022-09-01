@@ -1,0 +1,32 @@
+name: propersandwich-ci
+
+on: [push]
+
+jobs:
+
+  build:
+    environment: production
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ["3.8"]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install Tox and any other packages
+        run: pip install tox
+      - name: Run Tox
+        run: tox -e py
+        env:
+          TEST_SHEET: ${{secrets.TEST_SHEET}}
+          GOOGLE_API: ${{secrets.GOOGLE_API}}
+          TEST_DBNAME: ${{secrets.TEST_DBNAME}}
+          TEST_USER: ${{secrets.TEST_USER}}
+          TEST_PASSWORD: ${{secrets.TEST_PASSWORD}}
+          TEST_PORT: ${{secrets.TEST_PORT}}
+          TEST_HOST: ${{secrets.TEST_HOST}}
+
