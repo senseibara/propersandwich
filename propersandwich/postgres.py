@@ -21,11 +21,11 @@ def connection(database):
 
     """
 
-    dbname = os.getenv(f'{database}_dbname')
-    user = os.getenv(f'{database}_user')
-    password = os.getenv(f'{database}_password')
-    host = os.getenv(f'{database}_host')
-    port = os.getenv(f'{database}_port')
+    dbname = os.getenv(f'{database}_DBNAME')
+    user = os.getenv(f'{database}_USER')
+    password = os.getenv(f'{database}_PASSWORD')
+    host = os.getenv(f'{database}_HOST')
+    port = os.getenv(f'{database}_PORT')
 
     return psycopg2.connect(dbname=dbname, user=user, password=password, host=host, port=port)
 
