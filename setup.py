@@ -11,7 +11,7 @@ license = pathlib.Path('LICENSE').read_text()
 
 setup(
     name='propersandwich',
-    version='0.1.1',
+    version='0.1.2',
     description='propersandwich package',
     long_description=readme,
     author='Senseibara',
