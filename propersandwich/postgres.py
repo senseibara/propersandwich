@@ -8,6 +8,7 @@ import os
 import io
 import logging
 import pandas as pd
+import re
 
 load_dotenv()
 
@@ -66,9 +67,9 @@ def query(database, sql_query) -> list:
     return df
 
 
-def destructive_write(database, table, data) -> bool:
+def replace_table(database, table, data) -> bool:
     """
-    Overwrite the contents of a postgres database table with new data.
+    Replace an existing table with a new one or create it if it doesn't exist yet
 
     :param str database: The name of the database.
     :param str table: The name of the table.
@@ -95,12 +96,13 @@ def destructive_write(database, table, data) -> bool:
         conn.commit()
 
         # Insert data
-        output = io.StringIO()
-        data.to_csv(output, sep=';', header=False, index=True)
-        output.seek(0)
-        output.getvalue()
-        cursor.copy_from(output, table, sep=';', null='')
-        conn.commit()
+        with io.StringIO() as output:
+            data.to_csv(output, sep=';', header=False, index=True)
+            output.seek(0)
+            output.getvalue()
+            cursor.copy_from(output, table, sep=';', null='')
+            conn.commit()
+
         logging.info(f'The data has been written to {table} table')
 
     except (Exception, psycopg2.Error) as error:
@@ -124,11 +126,21 @@ def _get_postgres_type(dtype):
     :return: The corresponding PostgreSQL type.
     :rtype: str
     """
-    if dtype == 'int64':
-        return 'bigint'
+    if dtype == 'bool':
+        return 'boolean'
+    elif dtype == 'datetime64[ns]':
+        return 'timestamp'
+    elif dtype in ['float16', 'float32']:
+        return 'real'
     elif dtype == 'float64':
         return 'double_precision'
-    elif dtype == 'bool':
-        return 'boolean'
+    elif dtype in ['int32', 'uint16']:
+        return 'integer'
+    elif dtype in ['int64', 'uint32', 'uint64']:
+        return 'bigint'
+    elif dtype in ['int8', 'int16', 'uint8']:
+        return 'smallint'
+    elif dtype == 'timedelta[ns]':
+        return 'interval'
     else:
         return 'text'
