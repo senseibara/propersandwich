@@ -10,8 +10,8 @@ def test_query():
     assert row['testcolumn3'].at[row.index[0]] == 5
 
 
-def test_destructive_write():
-    data = pd.DataFrame({'testcolumn1': [1], 'testcolumn2': ['Business']})
+def test_replace_table():
+    data = pd.DataFrame({'testcolumn1': [1], 'testcolumn 2': ['Business']})
     data = data.rename_axis('index', axis='index')
     assert replace_table('TEST', 'test_replace_table', data) == True
 
@@ -19,7 +19,7 @@ def test_destructive_write():
     assert len(data) == 1
 
     row = data.loc[data['testcolumn1'] == 1]
-    assert row['testcolumn2'].at[row.index[0]] == 'Business'
+    assert row['testcolumn 2'].at[row.index[0]] == 'Business'
 
 
 def test_get_postgres_type():
