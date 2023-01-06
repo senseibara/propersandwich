@@ -8,7 +8,6 @@ import os
 import io
 import logging
 import pandas as pd
-import re
 
 load_dotenv()
 
