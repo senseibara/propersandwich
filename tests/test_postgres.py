@@ -11,20 +11,20 @@ def test_query():
 
 
 def test_replace_table():
-    data = pd.DataFrame({'testcolumn1': [1], 'testcolumn 2': ['Business']})
+    data = pd.DataFrame({'testcolumn1': [1.6], 'testcolumn 2': ['Business']})
     data = data.rename_axis('index', axis='index')
     assert replace_table('TEST', 'test_replace_table', data) == True
 
     data = query('TEST', 'SELECT * from test_replace_table')
     assert len(data) == 1
 
-    row = data.loc[data['testcolumn1'] == 1]
+    row = data.loc[data['testcolumn1'] == 1.6]
     assert row['testcolumn 2'].at[row.index[0]] == 'Business'
 
 
 def test_get_postgres_type():
     assert _get_postgres_type('int64') == 'bigint'
-    assert _get_postgres_type('float64') == 'double_precision'
+    assert _get_postgres_type('float64') == 'double precision'
     assert _get_postgres_type('object') == 'text'
     assert _get_postgres_type('datetime64[ns]') == 'timestamp'
     assert _get_postgres_type('bool') == 'boolean'

@@ -132,7 +132,7 @@ def _get_postgres_type(dtype):
     elif dtype in ['float16', 'float32']:
         return 'real'
     elif dtype == 'float64':
-        return 'double_precision'
+        return 'double precision'
     elif dtype in ['int32', 'uint16']:
         return 'integer'
     elif dtype in ['int64', 'uint32', 'uint64']:
