@@ -88,7 +88,7 @@ def replace_table(database, table, data) -> bool:
         conn.commit()
 
         # Create table
-        column_defs = ", ".join([f"{col} {_get_postgres_type(data[col].dtype)}" for col in data.columns])
+        column_defs = ", ".join([f'"{col}" {_get_postgres_type(data[col].dtype)}' for col in data.columns])
         if column_defs:
             column_defs = f"index integer, {column_defs}"
         cursor.execute(f'CREATE TABLE {table} ({column_defs})')
