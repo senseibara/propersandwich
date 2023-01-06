@@ -1,4 +1,4 @@
-from propersandwich.postgres import query, destructive_write
+from propersandwich.postgres import query, replace_table, _get_postgres_type
 import pandas as pd
 
 
@@ -13,10 +13,18 @@ def test_query():
 def test_destructive_write():
     data = pd.DataFrame({'testcolumn1': [1], 'testcolumn2': ['Business']})
     data = data.rename_axis('index', axis='index')
-    assert destructive_write('TEST', 'test_destructive_write', data) == True
+    assert replace_table('TEST', 'test_replace_table', data) == True
 
-    data = query('TEST', 'SELECT * from test_destructive_write')
+    data = query('TEST', 'SELECT * from test_replace_table')
     assert len(data) == 1
 
     row = data.loc[data['testcolumn1'] == 1]
     assert row['testcolumn2'].at[row.index[0]] == 'Business'
+
+
+def test_get_postgres_type():
+    assert _get_postgres_type('int64') == 'bigint'
+    assert _get_postgres_type('float64') == 'double_precision'
+    assert _get_postgres_type('object') == 'text'
+    assert _get_postgres_type('datetime64[ns]') == 'timestamp'
+    assert _get_postgres_type('bool') == 'boolean'
