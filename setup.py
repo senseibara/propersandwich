@@ -19,7 +19,7 @@ required = [
 
 setup(
     name='propersandwich',
-    version='0.1.7',
+    version='0.1.8',
     description='propersandwich package',
     long_description=readme,
     author='Senseibara',
