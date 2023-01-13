@@ -93,7 +93,7 @@ def replace_table(database, table, data) -> bool:
 
         # Insert data
         with io.StringIO() as output:
-            data.to_csv(output, sep=';', header=False, index=True)
+            data.to_csv(output, sep=';', header=False, index=False)
             output.seek(0)
             output.getvalue()
             cursor.copy_from(output, table, sep=';', null='')
@@ -131,9 +131,17 @@ def upsert(database, table, data, index_column) -> bool:
         conn = connection(database)
         cursor = conn.cursor()
 
-        # Create table
+        # Create table if it doesn't exist
         columns = {col: str(_get_postgres_type(data[col].dtype)) for col in data.columns}
         create_table(database, table, columns, primary_key=index_column)
+
+        # If table exist, setup primary key if it doesn't exist
+        cursor.execute(f"SELECT EXISTS(SELECT 1 FROM pg_constraint WHERE conname = '{table}_pkey')")
+        primary_key_exist = cursor.fetchone()[0]
+
+        if not primary_key_exist:
+            cursor.execute(f'ALTER TABLE {table} ADD PRIMARY KEY ({index_column})')
+            conn.commit()
 
         # Create an insert statement with the on conflict clause
         cols = '", "'.join(data.columns)
@@ -185,7 +193,7 @@ def create_table(database, table, columns, primary_key=None) -> bool:
         column_defs = ", ".join(
             [f'"{column_name}" {column_type}' for column_name, column_type in columns.items()])
         if column_defs:
-            column_defs = f"index integer, {column_defs}"
+            column_defs = f"{column_defs}"
         if primary_key:
             column_defs += f", PRIMARY KEY ({primary_key})"
         cursor.execute(f'CREATE TABLE IF NOT EXISTS {table} ({column_defs})')
