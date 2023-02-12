@@ -157,7 +157,7 @@ def upsert(database, table, data, index_column) -> bool:
         # Commit the changes and close the connection
         conn.commit()
 
-        logging.info(f'{len(data)} rows has been upserted to {table} table')
+        logging.debug(f'{len(data)} rows has been upserted to {table} table')
 
     except (Exception, psycopg2.Error) as error: # pragma: no cover
         logging.error(f'Error while executing query on {database} database', error)
@@ -233,7 +233,7 @@ def delete_table(database, table):
         cursor.execute(f'DROP TABLE IF EXISTS {table}')
         conn.commit()
 
-        logging.info(f'The table {table} has been deleted')
+        logging.debug(f'The table {table} has been deleted')
 
     except (Exception, psycopg2.Error) as error: # pragma: no cover
         logging.error(f'Error while executing query on {database} database', error)

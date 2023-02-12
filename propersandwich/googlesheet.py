@@ -58,7 +58,7 @@ def read_worksheet(spreadsheet_url, worksheet_title, start='A1') -> pd.DataFrame
     # Get the content of this worksheet as a pandas data frame.
     data = worksheet.get_as_df(start=start)
 
-    logging.info(f"Retrieved {len(data.index)} rows from [ {worksheet.title} / {spreadsheet.title} ]")
+    logging.debug(f"Retrieved {len(data.index)} rows from [ {worksheet.title} / {spreadsheet.title} ]")
 
     return data
 
@@ -88,7 +88,7 @@ def update_worksheet(spreadsheet_url, worksheet_title, data, start='A1', copy_he
         spreadsheet.worksheet_by_title(worksheet_title)
     except pygsheets.exceptions.WorksheetNotFound as error:
         spreadsheet.add_worksheet(worksheet_title)
-        logging.info(f"{worksheet_title} has been created")
+        logging.debug(f"{worksheet_title} has been created")
 
     worksheet = spreadsheet.worksheet_by_title(worksheet_title)
     worksheet.set_dataframe(data, start=start, copy_head=copy_head, extend=extend, fit=fit)
