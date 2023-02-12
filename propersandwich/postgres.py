@@ -61,7 +61,7 @@ def query(database, sql_query) -> list:
         if conn:
             cursor.close()
             conn.close()
-            logging.info(f'The connection to {database} database is now closed')
+            logging.debug(f'The connection to {database} database is now closed')
 
     return df
 
@@ -99,7 +99,7 @@ def replace_table(database, table, data) -> bool:
             cursor.copy_from(output, table, sep=';', null='')
             conn.commit()
 
-        logging.info(f'The data has been written to {table} table')
+        logging.debug(f'The data has been written to {table} table')
 
     except (Exception, psycopg2.Error) as error: # pragma: no cover
         logging.error(f'Error while executing query on {database} database', error)
@@ -109,7 +109,7 @@ def replace_table(database, table, data) -> bool:
         if conn:
             cursor.close()
             conn.close()
-            logging.info(f'The connection to {database} database is now closed')
+            logging.debug(f'The connection to {database} database is now closed')
     return True
 
 
@@ -167,7 +167,7 @@ def upsert(database, table, data, index_column) -> bool:
         if conn:
             cursor.close()
             conn.close()
-            logging.info(f'The connection to {database} database is now closed')
+            logging.debug(f'The connection to {database} database is now closed')
     return True
 
 
@@ -199,7 +199,7 @@ def create_table(database, table, columns, primary_key=None) -> bool:
         cursor.execute(f'CREATE TABLE IF NOT EXISTS {table} ({column_defs})')
         conn.commit()
 
-        logging.info(f'The table {table} has been created')
+        logging.debug(f'The table {table} has been created')
 
     except (Exception, psycopg2.Error) as error: # pragma: no cover
         logging.error(f'Error while executing query on {database} database', error)
@@ -209,7 +209,7 @@ def create_table(database, table, columns, primary_key=None) -> bool:
         if conn:
             cursor.close()
             conn.close()
-            logging.info(f'The connection to {database} database is now closed')
+            logging.debug(f'The connection to {database} database is now closed')
     return True
 
 
@@ -243,7 +243,7 @@ def delete_table(database, table):
         if conn:
             cursor.close()
             conn.close()
-            logging.info(f'The connection to {database} database is now closed')
+            logging.debug(f'The connection to {database} database is now closed')
     return True
 
 
